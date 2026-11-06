@@ -1,0 +1,4 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Acceso administrador</title><link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"></head>
+<body><main class="login-card"><a class="back" href="/">← Volver a la tienda</a><h1>Panel de administración</h1><p>Ingresa tu contraseña para administrar los arreglos y precios.</p>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="notice">{{ message }}</div>{% endfor %}{% endwith %}
+<form method="post" action="/admin/login"><label>Contraseña de administrador<input type="password" name="password" required autocomplete="current-password"></label><button class="primary" type="submit">Ingresar</button></form></main></body></html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Arreglos florales para regalar y celebrar momentos especiales.">
+  <title>Petalia | Flores que hablan por ti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="#inicio"><span>✿</span> <b id="brandName">Petalia</b><i>.</i></a>
+  <nav><a href="#inicio">Inicio</a><a href="#catalogo">Catálogo</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a></nav>
+  <a class="nav-cta" href="#catalogo">Ver arreglos ↗</a>
+</header>
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-copy">
+    <p class="eyebrow">✿ &nbsp; FLORES PARA CADA MOMENTO</p>
+    <h1>Un detalle bonito<br>puede decirlo <em>todo.</em></h1>
+    <p class="intro">Creamos arreglos florales con cariño para celebrar, agradecer, sorprender y hacer que cualquier día sea especial.</p>
+    <div class="actions"><a class="button dark" href="#catalogo">Explorar catálogo →</a><a class="simple-link" href="#nosotros">Conócenos ↗</a></div>
+    <p class="micro">♡ &nbsp; Flores frescas, detalles únicos.</p>
+  </div>
+  <div class="hero-art"><div class="hero-image"></div><div class="stamp">FLORES<br>CON AMOR<br>✿</div><div class="caption">Pequeños detalles,<br>grandes emociones.</div></div>
+</section>
+<section class="benefits">
+  <div><span>✿</span><p><b>Flores frescas</b><small>Seleccionadas con cuidado</small></p></div>
+  <div><span>♡</span><p><b>Diseños únicos</b><small>Hechos especialmente para ti</small></p></div>
+  <div><span>⌂</span><p><b>Entrega coordinada</b><small id="deliveryArea">Consulta nuestra cobertura</small></p></div>
+</section>
+<section class="section catalog" id="catalogo">
+  <div class="section-heading"><div><p class="eyebrow">NUESTROS FAVORITOS</p><h2>Un ramo para <em>cada historia.</em></h2></div><p>Encuentra tu favorito y haz tu pedido directamente por WhatsApp.</p></div>
+  <div class="catalog-tools"><input id="searchInput" type="search" placeholder="Buscar flores o arreglos..." aria-label="Buscar productos"><select id="categoryFilter" aria-label="Filtrar por categoría"><option value="">Todas las categorías</option></select></div>
+  <div id="productGrid" class="product-grid"><p class="loading">Cargando arreglos...</p></div>
+  <p class="price-note">Precios referenciales en soles. Confirma disponibilidad y precio final por WhatsApp.</p>
+</section>
+<section class="story section" id="nosotros">
+  <div class="story-image"></div><div><p class="eyebrow">UN POCO DE NOSOTROS</p><h2>Detalles que nacen<br>del <em>corazón.</em></h2><p class="story-text">Creemos que las flores hacen especiales los momentos cotidianos. Preparamos cada arreglo con dedicación y cuidamos cada pequeño detalle.</p><a class="button outline" href="#contacto">Hablemos de tu idea →</a></div>
+</section>
+<section class="contact section" id="contacto">
+  <p class="eyebrow">¿LISTO PARA SORPRENDER?</p><h2>Tu próximo detalle<br>comienza con un <em>hola.</em></h2>
+  <p>Cuéntanos para quién son las flores y te ayudaremos a elegir el arreglo ideal.</p>
+  <a id="mainWhatsapp" class="button light" href="#">☏ &nbsp; Escríbenos por WhatsApp</a><small>Atención y pedidos por mensaje</small>
+</section>
+</main>
+<footer><a class="logo" href="#inicio">✿ <b id="footerBrand">Petalia</b><i>.</i></a><span>Hecho con cariño, flor por flor. · © 2026</span><a href="/admin">Administrar catálogo</a></footer>
+<a id="floatingWhatsapp" class="floating-wa" href="#" aria-label="Contactar por WhatsApp">☏ <span>WhatsApp</span></a>
+</body></html>
