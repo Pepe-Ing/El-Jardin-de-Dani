@@ -1,7 +1,8 @@
 import os
 import sqlite3
 from functools import wraps
-from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash
+from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash, send_from_directory
+
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DB_PATH = os.environ.get(
@@ -9,6 +10,20 @@ DB_PATH = os.environ.get(
     os.path.join(BASE_DIR, "floreria.db")
 )
 app = Flask(__name__)
+@app.route("/sitemap.xml")
+def sitemap():
+    return send_from_directory(
+        BASE_DIR,
+        "sitemap.xml",
+        mimetype="application/xml"
+    )
+@app.route("/robots.txt")
+def robots():
+    return send_from_directory(
+        BASE_DIR,
+        "robots.txt",
+        mimetype="text/plain"
+    )
 app.secret_key = os.environ.get("SECRET_KEY", "cambia-esta-clave-antes-de-publicar")
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,

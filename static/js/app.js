@@ -1,5 +1,5 @@
 let allProducts = [];
-let storeConfig = { storeName: "Petalia", whatsapp: "51999999999", deliveryArea: "Consulta nuestra cobertura" };
+let storeConfig = { storeName: "El Jardin de Dani", whatsapp: "51983508241", deliveryArea: "Consulta nuestra cobertura" };
 
 const money = value => new Intl.NumberFormat("es-PE", { style: "currency", currency: "PEN" }).format(value);
 const waLink = message => `https://wa.me/${storeConfig.whatsapp}?text=${encodeURIComponent(message)}`;
