@@ -83,8 +83,8 @@ def home():
 @app.get("/api/config")
 def public_config():
     return jsonify({
-        "storeName": os.environ.get("STORE_NAME", "Petalia"),
-        "whatsapp": os.environ.get("WHATSAPP_NUMBER", "51999999999"),
+        "storeName": os.environ.get("STORE_NAME", "El Jardin de Dani"),
+        "whatsapp": os.environ.get("WHATSAPP_NUMBER", "51983508241"),
         "deliveryArea": os.environ.get("DELIVERY_AREA", "Consulta nuestra cobertura"),
     })
 
