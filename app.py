@@ -53,14 +53,14 @@ def init_db():
         if count == 0:
             demo = [
         
-                ("Ramo de rosas","Rosas frescas con envoltura elegante.",95,"Ramos",
-                 "/static/img/rosas.jpg"),
-                ("Tulipanes delicados", "Color y alegría en un ramo especial.", 110, "Ramos",
-                 "https://images.unsplash.com/photo-1520763185298-1b434c919e76?auto=format&fit=crop&w=800&q=85"),
-                ("Sol de girasoles", "Un detalle lleno de energía y luz.", 75, "Ramos",
-                 "https://stockcake.com/es/i/campo-de-girasoles-al-sol_1264739_832898",
-                ("Box romántico", "Flores en caja para sorprender.", 135, "Cajas"),
-                 "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=800&q=85"),
+                    ("Ramo de rosas", "Rosas frescas con envoltura elegante.", 89,
+                     "Ramos", "/static/img/rosas.jpg"),
+                    ("Tulipanes delicados", "Color y alegría en un ramo especial.",
+                    110, "Ramos","/static/img/tulipanes.jpg"),
+                    ("Sol de girasoles", "Un detalle lleno de energía y luz.",
+                    75, "Ramos", "/static/img/girasoles.jpg"),
+                    ("Box romántico", "Flores en caja para sorprender.",
+                    135, "Cajas", "/static/img/box-romantico.jpg"),
             ]
             conn.executemany(
                 "INSERT INTO products(name, description, price, category, image) VALUES(?,?,?,?,?)",
