@@ -1,30 +1,191 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Administrar catálogo</title><link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"><script defer src="{{ url_for('static', filename='js/admin.js') }}"></script></head>
-<body><header class="admin-header"><a href="/">← Ver tienda</a><h1>Administrar catálogo</h1><form method="post" action="/admin/logout"><button class="secondary">Cerrar sesión</button></form></header>
-<main class="admin-layout"><section class="panel"><h2 id="formTitle">Agregar un arreglo</h2><form id="productForm">
-<input type="hidden" id="productId"><label>Nombre<input id="name" maxlength="80" required placeholder="Ej. Ramo de rosas"></label>
-<label>Descripción<textarea id="description" maxlength="240" required placeholder="Describe el arreglo"></textarea></label>
-<div class="two"><label>Precio (S/)<input id="price" type="number" min="0" step="0.01" required></label><label>Categoría<input id="category" required placeholder="Ramos, Cajas..."></label></div>
-<label>URL de imagen<
-<input
-    type="url"
-    id="productImage"
-    name="image"
-    placeholder="https://ejemplo.com/foto.jpg"
-    data-upload-url
->
-></label>
-<div class="subir-fotografia">
-    <label for="imageFileUpload">
-        Seleccionar fotografía del producto
-    </label>
 
-    <input
-        type="file"
-        id="imageFileUpload"
-        accept="image/jpeg,image/png,image/webp"
-    >
+<!DOCTYPE html>
+<html lang="es">
 
-    <small id="imageUploadMessage"></small>
-</div>
-<div class="form-actions"><button class="primary" type="submit">Guardar producto</button><button class="secondary" type="button" id="cancelEdit">Limpiar</button></div><p id="formMessage" role="status"></p></form></section>
-<section class="panel"><h2>Productos publicados</h2><p class="hint">Puedes editar el nombre, la descripción, el precio, la categoría y la foto.</p><div id="adminProducts">Cargando...</div></section></main></body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administrar catálogo | El Jardín de Dani</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+
+    <script defer
+            src="{{ url_for('static', filename='js/admin.js') }}">
+    </script>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header class="admin-header">
+
+        <a href="/">← Ver tienda</a>
+
+        <h1>Administrar catálogo</h1>
+
+        <form method="post" action="/admin/logout">
+            <button class="secondary" type="submit">
+                Cerrar sesión
+            </button>
+        </form>
+
+    </header>
+
+    <!-- PANEL PRINCIPAL -->
+    <main class="admin-layout">
+
+        <!-- FORMULARIO DE PRODUCTOS -->
+        <section class="panel">
+
+            <h2 id="formTitle">Agregar un arreglo</h2>
+
+            <form id="productForm">
+
+                <!-- ID DEL PRODUCTO -->
+                <input type="hidden" id="productId">
+
+                <!-- NOMBRE -->
+                <label for="name">
+                    Nombre
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        maxlength="80"
+                        required
+                        placeholder="Ej. Ramo de rosas"
+                    >
+                </label>
+
+                <!-- DESCRIPCIÓN -->
+                <label for="description">
+                    Descripción
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        maxlength="240"
+                        required
+                        placeholder="Describe el arreglo"
+                    ></textarea>
+                </label>
+
+                <!-- PRECIO Y CATEGORÍA -->
+                <div class="two">
+
+                    <label for="price">
+                        Precio (S/)
+
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            min="0"
+                            step="0.01"
+                            required
+                            placeholder="Ej. 60.00"
+                        >
+                    </label>
+
+                    <label for="category">
+                        Categoría
+
+                        <input
+                            type="text"
+                            id="category"
+                            name="category"
+                            required
+                            placeholder="Ramos, Cajas..."
+                        >
+                    </label>
+
+                </div>
+
+                <!-- URL DE IMAGEN -->
+                <label for="image">
+                    URL de imagen
+
+                    <input
+                        type="url"
+                        id="image"
+                        name="image"
+                        placeholder="https://ejemplo.com/foto.jpg"
+                        data-upload-url
+                    >
+                </label>
+
+                <!-- SUBIR FOTOGRAFÍA -->
+                <div class="subir-fotografia">
+
+                    <label for="imageFileUpload">
+                        Seleccionar fotografía del producto
+                    </label>
+
+                    <input
+                        type="file"
+                        id="imageFileUpload"
+                        accept="image/jpeg,image/png,image/webp"
+                    >
+
+                    <small
+                        id="imageUploadMessage"
+                        role="status"
+                        aria-live="polite"
+                    ></small>
+
+                </div>
+
+                <!-- BOTONES -->
+                <div class="form-actions">
+
+                    <button
+                        class="primary"
+                        type="submit"
+                    >
+                        Guardar producto
+                    </button>
+
+                    <button
+                        class="secondary"
+                        type="button"
+                        id="cancelEdit"
+                    >
+                        Limpiar
+                    </button>
+
+                </div>
+
+                <!-- MENSAJE DEL FORMULARIO -->
+                <p
+                    id="formMessage"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+        </section>
+
+        <!-- LISTA DE PRODUCTOS -->
+        <section class="panel">
+
+            <h2>Productos publicados</h2>
+
+            <p class="hint">
+                Puedes editar el nombre, la descripción,
+                el precio, la categoría y la foto.
+            </p>
+
+            <div id="adminProducts">
+                Cargando...
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
