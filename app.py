@@ -1,8 +1,19 @@
 import os
 import sqlite3
+import io
+import uuid
+
+
+from dotenv import load_dotenv
+load_dotenv()
+
+import cloudinary
+import cloudinary.uploader
+
+from PIL import Image, UnidentifiedImageError
 from functools import wraps
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash, send_from_directory
-
+from dotenv import load_dotenv
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DB_PATH = os.environ.get(
@@ -10,6 +21,10 @@ DB_PATH = os.environ.get(
     os.path.join(BASE_DIR, "floreria.db")
 )
 app = Flask(__name__)
+
+load_dotenv() 
+cloudinary.config(secure=True)
+app.config["MAX_CONTENT_LENGTH"] = 6 * 1024 * 1024
 @app.route("/sitemap.xml")
 def sitemap():
     return send_from_directory(
@@ -176,6 +191,66 @@ def delete_product(product_id):
         if cur.rowcount == 0:
             return jsonify({"error": "Producto no encontrado."}), 404
     return jsonify({"message": "Producto eliminado."})
+
+@app.route("/api/admin/upload-image", methods=["POST"])
+@admin_required
+def upload_product_image():
+    archivo = request.files.get("image")
+
+    if archivo is None or not archivo.filename:
+        return jsonify({
+            "error": "Selecciona una imagen."
+        }), 400
+
+    contenido = archivo.read(5 * 1024 * 1024 + 1)
+
+    if len(contenido) > 5 * 1024 * 1024:
+        return jsonify({
+            "error": "La imagen no debe superar 5 MB."
+        }), 413
+
+    try:
+        with Image.open(io.BytesIO(contenido)) as img:
+            formato = img.format
+            if img.width * img.height > 20_000_000:
+                return jsonify({
+                    "error": "La imagen tiene demasiados píxeles."
+                }), 400
+            img.verify()
+
+    except (UnidentifiedImageError, OSError, ValueError):
+        return jsonify({
+            "error": "El archivo no es una imagen válida."
+        }), 400
+
+    if formato not in {"JPEG", "PNG", "WEBP"}:
+        return jsonify({
+            "error": "Solo se aceptan JPG, PNG y WebP."
+        }), 400
+
+    if not os.environ.get("CLOUDINARY_URL"):
+        return jsonify({
+            "error": "Cloudinary no está configurado."
+        }), 503
+
+    try:
+        resultado = cloudinary.uploader.upload(
+            io.BytesIO(contenido),
+            folder="el-jardin-de-dani",
+            public_id="producto-" + uuid.uuid4().hex,
+            resource_type="image",
+            overwrite=False
+        )
+
+        return jsonify({
+            "url": resultado["secure_url"]
+        })
+
+    except Exception:
+        app.logger.exception("Error subiendo imagen")
+        return jsonify({
+            "error": "No se pudo subir la fotografía."
+        }), 502
 
 init_db()
 

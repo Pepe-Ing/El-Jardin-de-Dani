@@ -1,6 +1,11 @@
 
+.env
 .venv/
 venv/
+app-respaldo.py
+admin-respaldo.html
+admin-js-respaldo.txt
+floreria-respaldo.db
 __pycache__/
 *.py[cod]
 *.db

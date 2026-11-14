@@ -73,3 +73,61 @@ async function removeProduct(id) {
 
 document.getElementById("cancelEdit").addEventListener("click", clearForm);
 loadProducts();
+
+
+document.addEventListener("change", async function (evento) {
+    if (evento.target.id !== "imageFileUpload") {
+        return;
+    }
+
+    const archivo = evento.target.files[0];
+    const mensaje = document.getElementById("imageUploadMessage");
+    const campoUrl = document.querySelector("[data-upload-url]");
+
+    if (!archivo || !mensaje || !campoUrl) {
+        return;
+    }
+
+    if (archivo.size > 5 * 1024 * 1024) {
+        mensaje.textContent = "La imagen supera 5 MB.";
+        return;
+    }
+
+    const datos = new FormData();
+    datos.append("image", archivo);
+
+    mensaje.textContent = "Subiendo fotografía...";
+
+    try {
+        const respuesta = await fetch("/api/admin/upload-image", {
+            method: "POST",
+            body: datos,
+            credentials: "same-origin"
+        });
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok) {
+            throw new Error(
+                resultado.error || "Error al subir la imagen"
+            );
+        }
+
+        campoUrl.value = resultado.url;
+
+        campoUrl.dispatchEvent(
+            new Event("input", { bubbles: true })
+        );
+
+        campoUrl.dispatchEvent(
+            new Event("change", { bubbles: true })
+        );
+
+        mensaje.textContent =
+            "Fotografía subida correctamente. Ahora guarda el producto.";
+
+    } catch (error) {
+        mensaje.textContent = error.message;
+    }
+});
+
